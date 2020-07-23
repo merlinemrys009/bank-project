@@ -33,12 +33,7 @@ import com.rab3tech.vo.PayeeInfoVO;
 import com.rab3tech.vo.SecurityQuestionsVO;
 import com.rab3tech.vo.TransactionVO;
 
-/**
- * 
- * @author Raheel
- * This class for customer GUI
- *
- */
+
 @Controller
 public class CustomerUIController {
 
