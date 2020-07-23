@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+function clearText(){
+	   //span
+	  document.getElementById("answer1Error").innerHTML="";
+	  document.getElementById("answer2Error").innerHTML="";
+	  document.getElementById("genMessage").innerHTML="";
+}
+
+function findQuestion() {
+	   var   answerObj=document.getElementById("answer1");
+	   var  answerText=answerObj.value;
+	   if(answerText.length<4){
+		     document.getElementById("answer1Error").innerHTML="Field can't be blank or at least 3 ChA";
+		     answerObj.focus();
+		     return;
+	   }
+	   var   answerObj=document.getElementById("answer2");
+	   var  answerText=answerObj.value;
+	   if(answerText.length<4){
+		     document.getElementById("answer2Error").innerHTML="Field can't be blank or at least 3 ChA";
+		     answerObj.focus();
+		     return;
+	   }
+    //THis submitting the form
+    document.authForm.submit();
+}
+
+</script>
+<style>
+.ffooter {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: red;
+	color: white;
+	text-align: center;
+	height: 30px;
+	background-color: #e9ffe7;
+}
+</style>
+</head>
+<body>
+	<header style="height: 30px; background-color: maroon;"> </header>
+	<div class="container">
+		<h2>Security Question(s)</h2>
+		<img th:src="@{/images/security_questions.png}" alt="Logo"
+			style="height: 140px" /> <br /> 
+			<span id="genMessage" th:utext="${error}" style="color: red; font-size: 18px; font-weight: bold;">
+			</span> 
+			<span th:utext="${message}" style="color: blue; font-size: 18px; font-weight: bold;">
+			</span>
+		<div style="width: 70%">
+			<form id="authForm" onsubmit="return false" name="authForm" th:action="@{/customer/account/validateSecurityQuestions}" method="POST" th:object="${loginid}">
+				<input type="hidden" class="form-control"
+					th:value="${question.loginid}" name="loginid">
+				<div class="form-group">
+					<label for="question1"><b>Security Question1:</b></label> <input
+						type="text" class="form-control"
+						th:value="${question.securityQuestion1}" name="securityQuestion1" readonly="readonly">
+					<label for="answer1"><b>Answer:</b></label> <input type="text"
+						class="form-control" name="securityQuestionAnswer1" id="answer1" placeholder="Please Enter Answer" onkeyup="clearText();">
+						<span style="color: red; font-size: 18px;" id="answer1Error"></span>
+				</div>
+				<div class="form-group">
+					<label for="question2"><b>Security Question2:</b></label> <input
+						type="text" class="form-control"
+						th:value="${question.securityQuestion2}" name="securityQuestion2" readonly="readonly">
+					<label for="answer2"><b>Answer:</b></label> <input type="text"
+						class="form-control" name="securityQuestionAnswer2" id="answer2" placeholder="Please Enter Answer" onkeyup="clearText();">
+						<span style="color: red; font-size: 18px;" id="answer2Error"></span> <br />
+				</div>
+				<button type="button" class="btn btn-primary" onclick="findQuestion();">Validate Question(s)</button>
+				<a th:href="@{/customer/account/enquiry}">
+					<button type="button" class="btn btn-warning">back</button>
+				</a>
+			</form>
+		</div>
+	</div>
+	<footer class="ffooter"> </footer>
+
+</body>
+</html>

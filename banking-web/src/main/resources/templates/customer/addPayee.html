@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Login Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+  <script>
+   
+        function clearText(){
+        	   //span
+        	  document.getElementById("nickNameError").innerHTML="";
+        	  document.getElementById("nameError").innerHTML="";
+        	  document.getElementById("accountNoError").innerHTML="";
+        	  document.getElementById("remarkError").innerHTML="";
+        	  document.getElementById("genMessage").innerHTML="";
+        }
+   
+         function validatePayee() {
+        	   var nickNameObj=document.getElementById("payeeNickName");
+        	   var nickNameText=nickNameObj.value;
+        	   if(nickNameText.length<=4){
+        		     document.getElementById("nickNameError").innerHTML="Nick Name can't be blank.";
+        		     nickNameObj.focus();
+        		     return;
+        	   }
+        	   var nameObj=document.getElementById("payeeName");
+               var nameText=nameObj.value;
+               if(nameText.length<=4){
+                     document.getElementById("nameError").innerHTML="Name can't be blank.";
+                     nameObj.focus();
+                     return;
+               }
+               var accountNoObj=document.getElementById("payeeAccountNo");
+        	   var accountNoText=accountNoObj.value;
+        	   if(accountNoText.length<=4){
+        		     document.getElementById("accountNoError").innerHTML="Account No can't be blank.";
+        		     accountNoObj.focus();
+        		     return;
+        	   }
+        	   var remarkObj=document.getElementById("remark");
+               var remarkText=remarkObj.value;
+               if(remarkText.length<=4){
+                     document.getElementById("remarkError").innerHTML="Remark can't be blank.";
+                     remarkObj.focus();
+                     return;
+               }
+               //THis submitting the form
+               document.payeeForm.submit();
+        	   
+         }  
+         
+ </script>
+ 
+  <style>
+.ffooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 30px;
+  background-color:#e9ffe7;
+}
+</style>
+</head>
+<body>
+<header style="height: 30px;background-color: maroon;">
+</header>
+<div th:replace="/customer/header :: header"></div>
+<div class="container">
+  <h2>Payee Page
+  </h2>
+  <img th:src="@{/images/login.png}" alt="Logo" style="height: 140px"/>
+   <br/>
+   <span id="genMessage" th:utext="${error}" style="color: red;font-size: 18px;font-weight: bold;"></span>
+      <span th:utext="${message}" style="color: blue;font-size: 18px;font-weight: bold;"></span>
+  <div style="width: 70%">
+  <form id="payeeForm" onsubmit="return false" name="payeeForm" action="#" method="post"  th:action="@{/customer/updatePayee}" >
+         
+       <div class="form-group">
+      <label>Beneficary Nick Name:</label>
+      <input type="text" style="width: 60%;" class="form-control"  name="payeeNickName"  id="payeeNickName" placeholder="Enter Beneficiary Nick Name" onkeyup="clearText();">
+    <span style="color: red; font-size: 18px; font-weight:bold;" id="nickNameError"></span>
+    </div>
+  
+    <div class="form-group">
+      <label >Beneficary Name:</label>
+       <input type="text" style="width: 60%;" class="form-control"  name="payeeName" id="payeeName" placeholder="Enter Beneficiary Name" onkeyup="clearText();">
+    <span style="color: red; font-size: 18px;font-weight:bold;" id="nameError"></span>
+    </div>
+     <div class="form-group">
+      <label>Beneficary Account Number:</label>
+      <input type="text" style="width: 60%;" class="form-control"  name="payeeAccountNo"  id="payeeAccountNo" placeholder="Enter Beneficiary Account No" onkeyup="clearText();">
+    <span style="color: red; font-size: 18px;font-weight:bold;" id="accountNoError"></span>
+    </div>
+  
+   <div class="form-group">
+      <label >Remark:</label>
+       <input type="text" style="width: 60%;" class="form-control"  name="remark" id="remark" placeholder="Enter Remark" onkeyup="clearText();">
+   <span style="color: red; font-size: 18px;font-weight:bold;" id="remarkError"></span> 
+    </div>
+    <button type="button" class="btn btn-primary" onclick="validatePayee();">Confirm & Add</button>
+ <a th:href="@{/customer/dashboard}">
+    <button type="button" class="btn btn-primary" onclick="validateAuth();">Back</button>
+    </a>
+  </form>
+  </div>
+</div>
+<footer  class="ffooter">
+</footer>
+
+</body>
+</html>

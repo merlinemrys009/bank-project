@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Header Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+
+<style>
+.nav {
+    list-style: none;
+    font-weight: bold;
+    margin-bottom: 10px;
+    float: left; /* Clear floats */
+    width: 100%;
+    /* Bring the nav above everything else--uncomment if needed.
+    position: relative;
+    z-index: 5;
+    */
+}
+.nav li {
+    float: left;
+    margin-right: 10px;
+    position: relative;
+}
+.nav a {
+    display: block;
+    padding: 5px;
+    color: #fff;
+    background-color: #333;
+    text-decoration: none;
+}
+.nav a:hover {
+    color: #fff;
+    background-color: #6b0c36;
+    text-decoration: underline;
+}
+
+/*--- DROPDOWN ---*/
+.nav ul {
+    background-color: #fff; /* Adding a background makes the dropdown work properly in IE7+. Make this as close to your page's background as possible (i.e. white page == white background). */
+    background: rgba(255,255,255,0); /* But! Let's make the background fully transparent where we can, we don't actually want to see it if we can help it... */
+    list-style: none;
+    position: absolute;
+    left: -9999px; /* Hide off-screen when not needed (this is more accessible than display: none;) */
+}
+.nav ul li {
+    padding-top: 1px; /* Introducing a padding between the li and the a give the illusion spaced items */
+    float: none;
+}
+.nav ul a {
+    white-space: nowrap; /* Stop text wrapping and creating multi-line dropdown items */
+}
+.nav li:hover ul { /* Display the dropdown on hover */
+    left: 0; /* Bring back on-screen when needed */
+}
+.nav li:hover a { /* These create persistent hover states, meaning the top-most link stays 'hovered' even when your cursor has moved down the list. */
+    background-color: #6b0c36;
+    text-decoration: underline;
+}
+.nav li:hover ul a { /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
+    text-decoration: none;
+}
+.nav li:hover ul li a:hover { /* Here we define the most explicit hover states--what happens when you hover each individual link. */
+    background-color: #333;
+}
+
+</style>
+
+<script>
+$(document).ready(function(){
+	  $(".navbar-brand").onmouseover(function(){
+	    $(".dropdown-menu").show();
+	 }):
+	$(".navbar-brand").onmouseout(function(){
+	    $(".dropdown-menu").hide();
+	 }):
+
+	}):
+</script>
+  
+</head>
+<body>
+<div th:fragment="header" >
+<nav class="navbar navbar-expand-sm bg-light navbar-light justify-content-right">
+
+  <a  th:href="@{/}"  class="btn btn-light ">
+    Banking
+  </a>
+
+<div class="btn-group" style=margin-left:100px>
+  <button  th:href="@{/}" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Home<span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" th:href="@{/customer/account/customerDetails}">Edit Profile</a>
+    <a class="dropdown-item" th:href="@{/customer/dashboard}">Dashboard</a>
+    <a class="dropdown-item" th:href="@{/customer/account/requestCheckBook}">Raise Request</a>
+  </div>
+</div>
+<div class="btn-group"  >
+  <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Beneficiary<span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" th:href="@{/customer/addPayee}">Add Payee</a>
+    <a class="dropdown-item" th:href="@{/customer/payeeDataInfo}">Payee Data</a>
+    <a class="dropdown-item" th:href="@{/customer/transactionStatement}">View Statement</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" th:href="@{/customer/account/moneyTransfer}">Fund Transfer</a>
+  </div>
+</div>
+
+<a  th:href="@{/customer/logout}"  class="btn btn-light " style=margin-left:1000px>
+    Logout
+  </a>
+</nav>
+
+<!-- <nav class="navbar navbar-expand-sm bg-light navbar-light justify-content-right">
+<ul class="nav">
+    <li class="navbar-brand dropdown">
+        <a th:href="@{/}">Banking</a>
+    </li>
+
+    <li class="navbar-brand dropdown" style=margin-left:100px>
+        <a class="dropdown-toggle"  data-toggle="dropdown" th:href="@{/customer/dashboard}">Home</a>
+        <ul class="dropdown-menu">
+            <li><a th:href="@{/customer/account/customerDetails}">Edit Profile</a></li>
+
+            <li><a th:href="@{/customer/dashboard}">Dashboard</a></li>
+        </ul>
+    </li>
+    <li class="navbar-brand dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/customer/dashboard}">Beneficiary</a>
+
+        <ul class="dropdown-menu">
+            <li><a th:href="@{/customer/addPayee}">Add Payee</a></li>
+            
+            <li><a th:href="@{/customer/payeeDataInfo}">Payee Profile</a></li>
+
+            <li><a th:href="@{/customer/transactionStatement}">Statement</a></li>
+            
+            <li><a th:href="@{/customer/account/moneyTransfer}">Fund Transfer</a></li>
+        </ul>
+
+    </li>
+    <li class="navbar-brand dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/}">Not Design yet</a>
+        <ul class="dropdown-menu">
+            <li><a th:href="@{/}">Small product (one)</a></li>
+
+            <li><a th:href="@{/}">Small product (two)</a></li>
+            <li><a th:href="@{/}">Small product (three)</a></li>
+            <li><a th:href="@{/}">Small product (four)</a></li>
+
+            <li><a th:href="@{/}">Big product (five)</a></li>
+            <li><a th:href="@{/}">Big product (six)</a></li>
+            <li><a th:href="@{/}">Big product (seven)</a></li>
+
+            <li><a th:href="@{/}">Big product (eight)</a></li>
+            <li><a th:href="@{/}">Enormous product (nine)</a></li>
+            <li><a th:href="@{/}">Enormous product (ten)</a></li>
+
+            <li><a th:href="@{/}">Enormous product (eleven)</a></li>
+        </ul>
+    </li>
+    <li class="navbar-brand dropdown" style=margin-left:800px>
+        <a th:href="@{/customer/logout}">Logout</a>
+    </li>
+</ul>
+</nav> -->
+
+<!-- <nav class="navbar navbar-expand-sm bg-light navbar-light justify-content-right">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Banking</a>
+    </div>
+    <ul class="navbar-nav">
+      <li class="navbar-brand active" ><a th:href="@{/customer/dashboard}" style="color:black; font-weight: bold">Home</a></li>
+      
+      <li   class="navbar-brand dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:black; font-weight: bold">Beneficiary
+        <span class="caret"></span></a>
+      
+        <ul class="dropdown-menu">
+      
+          <li><a  th:href="@{/customer/addPayee}" style="color:black; font-weight: bold">Add Payee</a></li>
+      
+          <li><a th:href="@{/customer/payeeDataInfo}" style="color:black; font-weight: bold">PayeeData</a></li>
+      
+          <li><a th:href="@{/customer/account/moneyTransfer}" style="color:black; font-weight: bold">Fund Transfer</a></li>
+      
+      	<li><a th:href="@{/customer/transactionStatement}" style="color:black; font-weight: bold">Bank Statement</a></li>
+      
+        </ul>
+      </li>
+      <li   class="navbar-brand dropdown"><a href="#" style="color:black; font-weight: bold">Coming Soon</a></li>
+     <li   class="navbar-brand dropdown"><a th:href="@{/customer/logout}" style="color:black; font-weight: bold">Logout</a></li>
+    </ul>
+  </div>
+</nav> -->
+
+</div>
+
+</body>
+</html>

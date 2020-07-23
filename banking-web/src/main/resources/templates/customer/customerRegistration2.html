@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Create New Product11111</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+ <script type="text/javascript">
+ 
+
+ 	function clearText(){
+ 		  document.getElementById("message").innerHTML="";
+ 	}
+ 	
+    function addRole(){
+          var pname=document.getElementById("name").value;
+          if(pname.length==0){
+        	  document.getElementById("message").innerHTML="Name cannot be empty";
+        	  return;
+          }
+    	  var desc=document.getElementById("desc").value;
+    	  var roleObj={name:pname,description:desc};
+    	  fetch('http://localhost:8080/v3/roles', {
+    		    headers: {
+    		      'Accept': 'application/json',
+    		      'Content-Type': 'application/json'
+    		    },
+    		    method: 'post',
+    		    body: JSON.stringify(roleObj)
+    		  }).then(function(response) {
+    		    return response.json();
+    		  }).then(function(data) {
+    			   console.log(data)
+    			  document.getElementById("message").innerHTML=data.message;
+    		  });
+     }
+    
+    var flag=0;
+    
+    function showRoles(){
+    	 if(flag==0){
+    		 flag=1;
+    	 }else{
+    		 flag=0;
+    		 $("#dataTable").hide();
+    		 return;
+    	 }
+    	 $("#dataTable").show();
+    	  fetch('http://localhost:8080/v3/roles', {
+  		    headers: {
+  		      'Accept': 'application/json',
+  		      'Content-Type': 'application/json'
+  		    },
+  		    method: 'get'
+  		  }).then(function(response) {
+  		    return response.json();
+  		  }).then(function(data) {
+  			   //tvataya
+  			   var content="";
+  			   for(var x=0;x<data.length;x++){
+				 content=content+'<tr>';
+				 content=content+'<td>'+(x+1)+'</td>';
+				 content=content+'<td>'+data[x].name+'</td>';
+				 content=content+'<td>'+data[x].description+'</td>';
+				 content=content+'</tr>';
+  			   }
+  			   
+  			   $("#tvataya").html(content);
+  			   
+  		  });
+    	 
+    }
+    
+    $(document).ready(function(){
+    	 $("#dataTable").hide();
+    });
+ 
+ </script>
+
+</head>
+
+<body>
+  <header style="background-color: fuchsia;height: 30px;">
+  </header>
+   
+    <div class="container">
+        <h1>Customer Registration Page</h1>
+        <br />
+        <span style="color: red;font-size: 18px;" id="message"></span>
+        <form id="roleid"  method="post">
+            <table class="table table-bordered" style="width: 100%;">
+                <tr>
+                    <td>Role Name:</td>
+                    <td><input type="text" class="form-control" name="name" id="name" onkeyup="clearText();"/></td>
+                     <td>Role Name:</td>
+                    <td><input type="text" class="form-control" name="name" id="name" onkeyup="clearText();"/></td>
+                </tr>
+               <tr>
+                    <td>Role Name:</td>
+                    <td><input type="text" class="form-control" name="name" id="name" onkeyup="clearText();"/></td>
+                     <td>Role Name:</td>
+                    <td><input type="text" class="form-control" name="name" id="name" onkeyup="clearText();"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    <button type="button" class="btn btn-primary" onclick="addRole();">Save</button>
+                     <a href="javascript:showRoles();"><img th:src="@{/images/roles.png}" class="img-responsive center-block" width="56"  alt="Logo" /></a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+       
+        <table class="table table-bordered" style="width: 70%;" id="dataTable">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="tvataya">
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>john@example.com</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@example.com</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@example.com</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  
+</body>
+</html>

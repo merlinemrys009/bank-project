@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Login Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+  <script>
+   
+        function clearText(){
+        	   //span
+        	  document.getElementById("usernameError").innerHTML="";
+        	  document.getElementById("passwordError").innerHTML="";
+        	  document.getElementById("genMessage").innerHTML="";
+        }
+   
+         function validateAuth() {
+        	   var   usernameObj=document.getElementById("username");
+        	   var  usernameText=usernameObj.value;
+        	   if(usernameText.length==0){
+        		     document.getElementById("usernameError").innerHTML="Username can't be blank";
+        		     usernameObj.focus();
+        		     return;
+        	   }
+        	   var   passwordObj=document.getElementById("password");
+               var  passwordText=passwordObj.value;
+               if(passwordText.length<=4){
+            	   passwordObj.focus();
+                     document.getElementById("passwordError").innerHTML="Password can't be blank, must be at least 4 characters long";
+                     return;
+               }
+               //THis submitting the form
+               document.authForm.submit();
+        	   
+         }    
+   </script>
+  <style>
+.ffooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 30px;
+  background-color:#e9ffe7;
+}
+</style>
+</head>
+<body>
+<header style="height: 30px;background-color: maroon;">
+</header>
+<div class="container">
+  <h2>Customer Login Page
+  </h2>
+  <img th:src="@{/images/login.png}" alt="Logo" style="height: 140px"/>
+   <br/>
+   <span id="genMessage" th:utext="${error}" style="color: red;font-size: 18px;font-weight: bold;"></span>
+      <span th:utext="${message}" style="color: blue;font-size: 18px;font-weight: bold;"></span>
+  <div style="width: 70%">
+   <form id="authForm" onsubmit="return false" name="authForm" th:action="@{/customer/login}" method="POST" >
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" style="width: 60%;" class="form-control"  name="username" id="username" placeholder="Enter username" onkeyup="clearText();">
+    <span style="color: red; font-size: 12px;" id="usernameError"></span><br>
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Password:</label>
+       <input type="password" style="width: 60%;" class="form-control"  name="password" id="password" placeholder="Enter password" onkeyup="clearText();">
+   <span style="color: red; font-size: 12px;" id="passwordError"></span> <br />
+    </div>
+    <button type="button" class="btn btn-primary" onclick="validateAuth();">Login</button>
+    <button type="reset" class="btn btn-danger">Reset</button>
+    <a th:href="@{/customer/account/enquiry}"> 
+    <button type="button" class="btn btn-warning">Customer Enquiry</button>
+    </a>
+    <a th:href="@{/customer/account/customerPasswordRec}"> 
+    <button type="button" class="btn btn-warning">Forgot Password</button>
+    </a>
+  </form>
+  </div>
+</div>
+<footer  class="ffooter">
+</footer>
+
+</body>
+</html>

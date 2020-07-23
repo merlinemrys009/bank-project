@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Login Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+   <style>
+.ffooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 30px;
+  background-color:#e9ffe7;
+}
+</style>
+  
+  <style type="text/css">
+  .form-inline{
+  float:left;
+  }
+  </style>
+</head>
+<body>
+<header style="height: 30px;background-color: maroon;color:white;">
+  Hello Mr. <span th:utext="${session.userSessionVO.username}" th:unless="${session == null}" style="font-weight: bold;"></span>
+   
+</header>
+<div th:replace="/customer/header :: header"></div>
+<div class="container">
+  <h2>Request page
+  </h2>
+<span th:utext="${error}" style="color: red;font-size: 18px;"></span>
+  <div style="width: 70%">
+   <span th:utext="${message}" style="color: blue;font-size: 18px;font-weight: bold;"></span><br/>
+  </div>
+  <!-- <div th:object = "${addressVO}" class="box">
+   <p><b>Address 1:</b> <span th:text="*{address1}"></span></p>
+   <p><b>City:</b> <span th:text="*{city}"></span></p>
+   <p><b>State :</b> <span th:text="*{state}"></span></p>
+   <p><b>Zipcode :</b> <span th:text="*{zipcode}"></span></p>
+   <p><b>Firt Name:</b> <span th:text="*{firstName}"></span></p>
+   <p><b>Last Name:</b> <span th:text="*{lastName}"></span></p>
+  </div> -->
+  <form action="#" 
+			th:object="${addressVO}">
+			<table class="table table-bordered"
+				style="width: 100%; font-size: 16px;">
+				
+				<tr>
+					<td>Address 1:</td>
+					<td><input type="text" class="form-control" th:field="*{address1}"
+						id="name" />
+					<td>City:</td>
+					<td><input type="text" class="form-control"
+						th:field="*{city}" /></td>
+				</tr>
+				<tr>
+					<td>State:</td>
+					<td><input type="text" class="form-control"
+						th:field="*{state}" /></td>
+					<td>ZipCode:</td>
+					<td><input type="text" class="form-control"
+						th:field="*{zipcode}" /></td>
+				</tr>
+
+				<tr>
+					<td>First Name:</td>
+					<td><input type="text" class="form-control"
+						th:field="*{firstName}" />
+					<td>Last Name:</td>
+					<td><input type="text" class="form-control" th:field="*{lastName}" />
+					</td>
+				</tr>
+
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colspan="2">
+						<button type="submit" class="btn btn-primary">Edit</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+  
+ 
+
+</div>
+</body>
+</html>

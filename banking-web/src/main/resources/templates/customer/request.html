@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Login Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+   <style>
+.ffooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 30px;
+  background-color:#e9ffe7;
+}
+</style>
+  
+  <style type="text/css">
+  .form-inline{
+  float:left;
+  }
+  </style>
+</head>
+<body>
+<header style="height: 30px;background-color: maroon;color:white;">
+  Hello Mr. <span th:utext="${session.userSessionVO.username}" th:unless="${session == null}" style="font-weight: bold;"></span>
+   
+</header>
+<div th:replace="/customer/header :: header"></div>
+<div class="container">
+  <h2>Request page
+  </h2>
+<span th:utext="${error}" style="color: red;font-size: 18px;"></span>
+  <div style="width: 70%">
+   <span th:utext="${message}" style="color: blue;font-size: 18px;font-weight: bold;"></span><br/>
+  </div>
+  
+  <form th:action="@{/customer/account/addressUpdated}" method="POST"  th:object="${addressVO}" >
+  
+   <!--  <div class="form-group">
+      <label>UserID/UserName:</label>
+      <input type="text" style="width: 25%;" class="form-control"  placeholder="Enter UserName">
+    </div> -->
+  	<div class="form-group">
+      <label >First Name:</label>
+      <input type="text" style="width: 25%;" class="form-control" name="firstName" placeholder="Enter First Name">
+    </div>
+    
+    <div class="form-group">
+      <label>Last Name:</label>
+      <input type="text" style="width: 25%;" class="form-control" name="lastName" placeholder="Enter Last Name">
+    </div>
+    <div class="form-group">
+      <label>Address 1:</label>
+      <input type="text" style="width: 30%;" class="form-control" name="address1" placeholder="Primary Address">
+    </div>
+     <div class="form-group">
+      <label>Address 2:</label>
+      <input type="text" style="width: 30%;" class="form-control" name="address2" placeholder="Primary Address">
+    </div>
+    <div class="form-inline">
+      <label >City:</label>
+      <input type="text" style="width: 70%;" class="form-control" name="city" placeholder="Enter City">
+    </div>
+    
+     <div class="form-inline">
+      <label >State:</label > 
+      <input type="text" style="width: 70%;"  class="form-control" name="state" placeholder="Enter State">
+    </div>
+   
+   <div class="form-inline">
+      <label >Zipcode:</label>
+       <input type="number" style="width: 70%;"  class="form-control" name="zipcode" placeholder="Enter Zipcode">
+    </div>
+    
+    
+    <!-- <div class="form-group">
+    <label style="font-size: 12px; color:red" >(Optional)</label>
+      <label>Address 2:</label>
+      <input type="text" style="width: 45%;" class="form-control" placeholder="Secondary Address">
+    </div>
+    <div class="form-inline">
+      <label >City:</label>
+      <input type="text" style="width: 70%;" class="form-control" placeholder="Enter City">
+    </div>
+    
+     <div class="form-inline">
+      <label >State:</label > 
+      <input type="text" style="width: 70%;"  class="form-control" placeholder="Enter State">
+    </div>
+   
+   <div class="form-inline">
+      <label >Zipcode:</label>
+       <input type="number" style="width: 70%;"  class="form-control" placeholder="Enter Zipcode">
+    </div> -->
+    <br/><br/>
+   
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a th:href="@{/customer/login}"> 
+    <button type="button" class="btn btn-danger">Login</button>
+    </a>
+  </form>
+
+</div>
+</body>
+</html>
